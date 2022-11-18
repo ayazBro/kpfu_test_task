@@ -1,0 +1,92 @@
+CREATE TABLE product(
+    id int primary key GENERATED ALWAYS AS IDENTITY ,
+    name varchar(30) NOT NULL,
+    kcal int NOT NULL
+);
+
+INSERT INTO product(name, kcal) VALUES
+('carrot',25),
+('onion',35),
+('potato',164),
+('tomato',20),
+('apple',95),
+('banana',111),
+('avocado',320),
+('mango',202),
+('chicken',344),
+('cracker',35),
+('ketchup',15),
+('sour cream',15),
+('caviar',42),
+('shark',111) ;
+
+ CREATE TABLE cook(
+     id int primary key GENERATED ALWAYS AS IDENTITY ,
+     name varchar(30) NOT NULL,
+     rating int NOT NULL
+ );
+
+ INSERT INTO cook(name,rating) VALUES
+ ('Ayaz Akchurin',100),
+ ('Alice Waters',56),
+ ('Carla Hall',48),
+ ('Catherine Ann Cora',72),
+ ('Edna Lewis',69),
+ ('Leah Chase',65);
+
+ CREATE TABLE dish(
+     id int primary key GENERATED ALWAYS AS IDENTITY,
+     name varchar(30) NOT NULL,
+     price int NOT NULL,
+     rating int NOT NULL,
+     author_id int NOT NULL references cook(id) ON DELETE CASCADE
+ );
+
+INSERT INTO dish (name,price,rating,author_id)
+VALUES
+('meat of shark with banana',3400,4.8,4),
+('chicken with potato',1200,4.5,3),
+('salad of fruits',400,3.5,3),
+('ketchunez',100,4.2,1);
+
+ CREATE TABLE recept(
+     dish_id int references dish(id),
+     product_id int references product(id),
+     primary key(dish_id,product_id)
+ );
+
+INSERT INTO recept VALUES
+(1,14),
+(1,2),
+(1,6),
+(2,9),
+(2,3),
+(3,5),
+(3,6),
+(3,8),
+(4,11),
+(4,12);
+
+ CREATE TABLE client(
+     id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+     name varchar(30) NOT NULL,
+     budget int NOT NULL
+ );
+
+INSERT INTO client(name,budget)
+VALUES
+('Ayaz',18000),
+('John',5000),
+('Sergey',30000);
+
+ CREATE TABLE order(
+    dish_id int references dish(id),
+    client_id int references client(id),
+ primary key(dish_id,client_id)
+ );
+
+ INSERT INTO orders VALUES
+(1,2),
+(1,3),
+(2,1),
+(4,1);
