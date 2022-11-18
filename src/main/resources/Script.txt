@@ -79,7 +79,7 @@ VALUES
 ('John',5000),
 ('Sergey',30000);
 
- CREATE TABLE order(
+ CREATE TABLE orders(
     dish_id int references dish(id),
     client_id int references client(id),
  primary key(dish_id,client_id)
